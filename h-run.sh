@@ -3,11 +3,11 @@
 cd `dirname $0`
 
 install_miner() {
-        wget https://github.com/mimblewimble/grin-miner/releases/download/v1.0.0/grin-miner-v1.0.0-479967147-linux-amd64.tgz
-        tar -zxf grin-miner-v1.0.0-479967147-linux-amd64.tgz
+        wget https://github.com/mimblewimble/grin-miner/releases/download/v1.0.1/grin-miner-v1.0.1-480578774-linux-amd64.tgz
+        tar -zxf grin-miner-v1.0.1-480578774-linux-amd64.tgz
         mv grin-miner-v1.0.0/grin-miner .
         mv grin-miner-v1.0.0/plugins .
-        rm grin-miner-v1.0.0-479967147-linux-amd64.tgz
+        rm grin-miner-v1.0.1-480578774-linux-amd64.tgz
 }
 
 [ -t 1 ] && . colors

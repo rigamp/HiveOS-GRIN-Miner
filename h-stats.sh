@@ -25,10 +25,10 @@ get_cards_hashes(){
 			(( _N_COUNTER=_N_COUNTER+1))
 		fi
 								
-		local GHS=`cat $LOG_NAME | grep -a "Device $(echo $_GPU) ($(echo $_NAME)" | tail -n1 | awk 'match($0, /Graphs per second: [0-9]+.[0-9]+/) {print substr($0, RSTART, RLENGTH)}'|  cut -d " " -f4`
+		local GHS=`tail -n 30 $LOG_NAME | grep -a "Device $(echo $_GPU) ($(echo $_NAME)" | tail -n1 | awk 'match($0, /Graphs per second: [0-9]+.[0-9]+/) {print substr($0, RSTART, RLENGTH)}'|  cut -d " " -f4`
                 if [ -z $GHS ] && [ "$_BRAND" == "amd" ]
                 then
-                        GHS=`cat $LOG_NAME | grep -a "Device $(echo $_GPU) (gfx" | tail -n1 | awk 'match($0, /Graphs per second: [0-9]+.[0-9]+/) {print substr($0, RSTART, RLENGTH)}'|  cut -d " " -f4`
+                        GHS=`tail -n 30 $LOG_NAME | grep -a "Device $(echo $_GPU) (gfx" | tail -n1 | awk 'match($0, /Graphs per second: [0-9]+.[0-9]+/) {print substr($0, RSTART, RLENGTH)}'|  cut -d " " -f4`
                 fi
 		hs[$i]=`echo $GHS`
 	done
@@ -61,7 +61,7 @@ get_miner_uptime(){
 
 get_total_hashes(){
         # khs is global
-        local MHS=`cat $LOG_NAME | grep -a "Mining: Cuck(at)oo at " | tail -n1`
+        local MHS=`tail -n50 $LOG_NAME | grep -a "Mining: Cuck(at)oo at " | tail -n1`
 	echo $MHS | cut -d " " -f8 | awk '{s+=$1} END {print s/1000}'
 }
 
