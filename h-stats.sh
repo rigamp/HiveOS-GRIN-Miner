@@ -74,7 +74,7 @@ get_total_hashes(){
 . /hive/miners/custom/$CUSTOM_MINER/h-manifest.conf
 local LOG_NAME="$CUSTOM_LOG_BASENAME.log"
 
-gpus=`gpu-detect listjson`
+gpus=`gpu-detect listjson | jq '[.[] | select(.brand!="cpu")]'`
 GPU_COUNT=`echo $gpus | jq 'length'`
 
 # Calc log freshness by logfile timestamp since no time entries in log
