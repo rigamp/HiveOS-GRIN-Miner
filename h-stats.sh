@@ -25,10 +25,10 @@ get_cards_hashes(){
 			(( _N_COUNTER=_N_COUNTER+1))
 		fi
 								
-		local GHS=`tail -n 30 $LOG_NAME | grep -a "Device $(echo $_GPU) ($(echo $_NAME)" | tail -n1 | awk 'match($0, /Graphs per second: [0-9]+.[0-9]+/) {print substr($0, RSTART, RLENGTH)}'|  cut -d " " -f4`
+		local GHS=`tail -n 30 $LOG_NAME | grep -a "Device $(echo $_GPU) ($(echo $_NAME)" | tail -n1 | awk 'match($0, /Graphs per second: \.?[0-9]+.[0-9]+/) {print substr($0, RSTART, RLENGTH)}'|  cut -d " " -f4`
                 if [ -z $GHS ] && [ "$_BRAND" == "amd" ]
                 then
-                        GHS=`tail -n 30 $LOG_NAME | grep -a "Device $(echo $_GPU) (gfx" | tail -n1 | awk 'match($0, /Graphs per second: [0-9]+.[0-9]+/) {print substr($0, RSTART, RLENGTH)}'|  cut -d " " -f4`
+                        GHS=`tail -n 30 $LOG_NAME | grep -a "Device $(echo $_GPU) (gfx" | tail -n1 | awk 'match($0, /Graphs per second: \.?[0-9]+.[0-9]+/) {print substr($0, RSTART, RLENGTH)}'|  cut -d " " -f4`
                 fi
 		hs[$i]=`echo $GHS`
 	done

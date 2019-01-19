@@ -8,7 +8,7 @@
 
 if [ -z $CUSTOM_USER_CONFIG ];
 then
-    gpus=`gpu-detect listjson`
+    gpus=`gpu-detect listjson | jq '[.[] | select(.brand!="cpu")]'`
 #    gpus=`cat /hive/miners/custom//${CUSTOM_NAME}/gpus.json`
     brand=`echo $gpus | jq -r '.[0].brand'` 
     if [ "$brand" == "nvidia" ];
