@@ -20,4 +20,6 @@ install_miner() {
 CUSTOM_LOG_BASEDIR=`dirname "$CUSTOM_LOG_BASENAME"`
 [[ ! -d $CUSTOM_LOG_BASEDIR ]] && mkdir -p $CUSTOM_LOG_BASEDIR
 [[ ! -f ./grin-miner ]] && install_miner
+conf=`cat /hive/miners/custom//${CUSTOM_NAME}/grin-miner.toml`
+[[ $conf == *"gtx"* ]] && systemctl stop hivex && echo "1080 ti using C31 plugin. Stopping xorg to save vram."
 ./grin-miner
